@@ -5,19 +5,9 @@ import java.util.Arrays;
 import ba.bitcamp.homeworkclasses12.task2.Author;
 import ba.bitcamp.homeworkclasses12.task3.Book;
 
+
 public class Bookstore {
 	
-	/*
-	 * Napisati Klasu Knjizara koja ima podatke o imenu knjizare I knjigama koje su u
-
-prodaji. Napisati I testni program koji napravi novu knjizaru, doda u knjizaru
-
-odredeni broj knjiga a zatim simulira da dodajemo nove knjige I da se knjige
-
-prodaju. Omoguciti da se ispisu knjige. I da se ispisu sve knjige od odredenog
-
-autora.
-	 */
 	
 	private String name;
 	private Boolean inSale;

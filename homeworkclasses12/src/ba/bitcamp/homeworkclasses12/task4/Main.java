@@ -1,7 +1,5 @@
 package ba.bitcamp.homeworkclasses12.task4;
 
-import java.util.Arrays;
-
 import ba.bitcamp.homeworkclasses12.task2.Author;
 import ba.bitcamp.homeworkclasses12.task3.Book;
 
@@ -26,11 +24,10 @@ public class Main {
 		
 		Bookstore bs = new Bookstore("Bookstore", b);
 		
-		//System.out.println(Arrays.toString(bs.buyBook(bb)));
-		
+		bs.sellBookFromBookstore(b3);
+		bs.sellBookFromBookstore(b3);
+				
 		System.out.println(bs);
-		
-		System.out.println(bs.getAllBooksFromOneAuthor(a1));
 		
 	}
 

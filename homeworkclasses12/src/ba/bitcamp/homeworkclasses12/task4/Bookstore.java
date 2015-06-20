@@ -39,14 +39,45 @@ autora.
 		return false;
 	}
 	
-	//Dodati knjigu
-	//Prodati knjigu (samo ako je getInSale true)
+	
+	public Book[] addBooksToBookstore(Book book) {
+		Book[] added = new Book [this.books.length + 1];
+		for (int i = 0; i < added.length; i++) {
+			if (added[i]==(null)) {
+				added[i] = book;
+			}
+		}
+		return added;
+	}
+	
+	
+	/**
+	 * Sells a book from bookstore, checks if it's on condition 
+	 * and sells it, then lowers condition. If not. throws exception.
+	 * 
+	 * @param book object
+	 * @throws UnsupportedOperationException
+	 */
+	public void sellBookFromBookstore(Book book) {
+		for (int i = 0; i < books.length; i++) {
+			if (book.getCondition() == Book.NO_BOOK) {
+				throw new UnsupportedOperationException("All copies sold.");
+			} else if (book.getCondition() == Book.ONE_BOOK) {
+				books[i].setCondition(Book.NO_BOOK);
+			} else if (book.getCondition() == Book.TWO_BOOKS) {
+				books[i].setCondition(Book.ONE_BOOK);
+			} else if (book.getCondition() == Book.THREE_BOOKS) {
+				books[i].setCondition(Book.TWO_BOOKS);
+			}
+		}
+	}
+	
 
 	/**
 	 * Prints all the books in bookstore.
 	 */
 	public String toString(){
-		return "Books in bookstore" + Arrays.toString(books);
+		return "Books in bookstore\n" + Arrays.toString(books);
 	}
 	
 	/**

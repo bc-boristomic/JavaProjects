@@ -39,33 +39,38 @@ autora.
 		return false;
 	}
 	
-	public Book[] buyBook(Book[] books) {
-		Book[] bought = new Book [books.length + this.books.length];
-		for (int i = 0; i < bought.length; i++) {
-			if(bought[i] == null) {
-				bought[i] = this.books[i];
-			} else if (bought[i] == null) {
-				bought[i] = books[i];
-			}
-		}
-		return bought;
-	}
+	//Dodati knjigu
+	//Prodati knjigu (samo ako je getInSale true)
 
-	
+	/**
+	 * Prints all the books in bookstore.
+	 */
 	public String toString(){
-		return "Books in bookstore" + books;
+		return "Books in bookstore" + Arrays.toString(books);
 	}
 	
-	public String getBooksFromOneAuthor(Author author) {
+	/**
+	 * Returns names of all books from inputed author.
+	 * 
+	 * @param author Object author
+	 * @return <code>String</code> type names of books
+	 */
+	public String getAllBooksFromOneAuthor(Author author) {
 		String s = "";
 		for (int i = 0; i < books.length; i++) {
-			//if (books[i].getAuthor().equals(author)) {
-				
-				return books[i].getAuthor().equals(author) + toString();
-				
-			
+			if (books[i].getAuthor().equals(author)) {
+				s += books[i].getName() + ", ";
+			}
 		}
-		return "No books from that author";
+		return s;
 	}
+	
+
+	
+	
+	
+	
+	
+
 
 }

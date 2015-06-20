@@ -11,6 +11,7 @@ public class Main {
 		
 		Author a1 = new Author("Ivo Andric", "abc@mail.com", "M");
 		Author a2 = new Author("Mesa Selimovic", "bcd@mail.com", "M");
+		Author a3 = new Author("Miroslav Krleza", "cde@mail.com", "M");
 		
 		Book b1 = new Book(a1, "Gospodjica", 19.99, Book.TWO_BOOKS);
 		Book b2 = new Book(a1, "Prokleta avlija", 22.95, Book.NO_BOOK);
@@ -26,9 +27,10 @@ public class Main {
 		Bookstore bs = new Bookstore("Bookstore", b);
 		
 		//System.out.println(Arrays.toString(bs.buyBook(bb)));
-		//System.out.println(bs);
 		
-		System.out.println(bs.getBooksFromOneAuthor(a1));
+		System.out.println(bs);
+		
+		System.out.println(bs.getAllBooksFromOneAuthor(a1));
 		
 	}
 

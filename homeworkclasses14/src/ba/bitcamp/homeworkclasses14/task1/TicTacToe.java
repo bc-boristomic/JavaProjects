@@ -18,7 +18,7 @@ public class TicTacToe extends JFrame {
 	 * Constructor of TicTacToe Class
 	 */
 	public TicTacToe() {
-		super(); // Call super constructor (Object class)
+		super(); // Call super constructor (JFrame class)
 		
 		setLayout(new GridLayout(3, 3)); // Layout setup
 

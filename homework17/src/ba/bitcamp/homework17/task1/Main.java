@@ -25,7 +25,7 @@ public class Main {
 		//cl.connect(s); // remove comments for exception
 		
 		c1.disconnect();
-		c1.connect(s);
+		
 		
 		StarNetwork sn = new StarNetwork("Network", s);
 

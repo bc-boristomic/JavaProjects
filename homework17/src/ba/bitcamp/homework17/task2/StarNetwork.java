@@ -71,4 +71,11 @@ public class StarNetwork extends Network implements Functionable {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "StarNetwork [server=" + server + "]";
+	}
+	
+	
+
 }

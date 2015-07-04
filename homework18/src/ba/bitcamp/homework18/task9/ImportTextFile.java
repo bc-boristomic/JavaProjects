@@ -2,6 +2,9 @@ package ba.bitcamp.homework18.task9;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -38,24 +41,20 @@ public class ImportTextFile extends JFrame {
 		panel.add(enter);
 		panel.add(scroll);
 		
+		filename.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					readFromFile();
+				}
+			}
+		});
+		
 		enter.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String read = "";
-				try {
-					TextIO.readFile(filename.getText());
-					while (!TextIO.eof()) {
-						read += TextIO.getln() + "\n";
-					}
-					if (read.length() == 0) {
-						text.setText("File empty.");
-					}else {
-						text.setText(read);
-					}
-				} catch (IllegalArgumentException ex) {
-					JOptionPane.showMessageDialog(null, "Enter valid filename");
-				}
+				readFromFile();
 			}
 		});
 
@@ -66,7 +65,22 @@ public class ImportTextFile extends JFrame {
 		setVisible(true);
 	}
 	
-	
+	public void readFromFile() {
+		String read = "";
+		try {
+			TextIO.readFile(filename.getText());
+			while (!TextIO.eof()) {
+				read += TextIO.getln() + "\n";
+			}
+			if (read.length() == 0) {
+				text.setText("File empty.");
+			}else {
+				text.setText(read);
+			}
+		} catch (IllegalArgumentException ex) {
+			JOptionPane.showMessageDialog(null, "Enter valid filename");
+		}
+	}
 	
 	public static void main(String[] args) {
 		

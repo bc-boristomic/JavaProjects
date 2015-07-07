@@ -37,6 +37,15 @@ import javax.swing.SwingConstants;
 public class Calculator extends JFrame {
 	private static final long serialVersionUID = 8358076364473338521L;
 
+	// Constants used to make button dimensions
+	private static final int BUTTON_HEIGHT = 45;
+	private static final int BUTTON_LENGTH = 95;
+
+	// Dimensions used to set buttons size
+	private Dimension regular = new Dimension(BUTTON_HEIGHT, BUTTON_HEIGHT);
+	private Dimension stretched = new Dimension(BUTTON_LENGTH, BUTTON_HEIGHT);
+
+	// JMenuBar along with all the Menus and Items
 	private JMenuBar bar = new JMenuBar();
 	private JMenu file = new JMenu("File");
 	private JMenuItem clear = new JMenuItem("Clear");
@@ -46,27 +55,24 @@ public class Calculator extends JFrame {
 	private JMenu help = new JMenu("Help");
 	private JMenuItem about = new JMenuItem("About");
 
-	private JPanel panel = new JPanel();
+	// Top panel for display and center panel for buttons
 	private JPanel top = new JPanel();
 	private JPanel center = new JPanel();
 	
+	// TextFields for result display and input display
 	private JTextField sumText = new JTextField("0");
 	private JTextField insertText = new JTextField("0");
 	
-	private static final int BUTTON_HEIGHT = 45;
-	private static final int BUTTON_LENGTH = 95;
-
+	// All the buttons and array of string with names of buttons
 	private JButton[] buttons = new JButton[17];
 	private String[] buttonText = { "7", "8", "9", "Clear", "4", "5", "6", "/", "*", "1", "2", "3", "-", "+", "0", ".", "=" };
+	
+	// Label used to make buttons arrangement look good, used instead of another button
 	private JLabel java = new JLabel("Java");
 	
-	private Dimension regular = new Dimension(BUTTON_HEIGHT, BUTTON_HEIGHT);
-	private Dimension streched = new Dimension(BUTTON_LENGTH, BUTTON_HEIGHT);
-
+	// Variables used for operations
 	private String number = "", mathExpression = "", math = "";
-
 	private double sum = 0.0, num;
-	
 	private boolean isParsable = false, isFirstNum = true, commaCount = false, isFirstOp = true;
 	private int counterOperations = 0, counterEquals = 0, commaCounter = 0;
 		
@@ -74,20 +80,18 @@ public class Calculator extends JFrame {
 	 * Constructor of Calculator class.
 	 */
 	public Calculator() {
-		
 		initBarMenu();
 		initPanels();
 		initCalculationFields();
 		initButtons();
 		initFrame();
-		
 	}
 
 	/**
 	 * Sets JMenuBar adds all of the components and adds ActionListeners.
 	 */
 	private void initBarMenu() {
-		add(bar, BorderLayout.NORTH);
+		setJMenuBar(bar);
 		bar.add(file);
 		bar.add(edit);
 		bar.add(help);
@@ -107,10 +111,8 @@ public class Calculator extends JFrame {
 	 * Creates TitledBorder arount them.
 	 */
 	private void initPanels() {
-		add(panel, BorderLayout.CENTER);
-		panel.setLayout(new BorderLayout());
-		panel.add(top, BorderLayout.NORTH);
-		panel.add(center, BorderLayout.CENTER);
+		add(top, BorderLayout.NORTH);
+		add(center, BorderLayout.CENTER);
 		top.setBorder(BorderFactory.createTitledBorder("Result"));
 		center.setBorder(BorderFactory.createTitledBorder("Operations"));
 		center.setLayout(new FlowLayout());
@@ -143,30 +145,25 @@ public class Calculator extends JFrame {
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i] = new JButton(buttonText[i]);
 			buttons[i].setPreferredSize(regular);
-			if (i == 3) {
-				buttons[i].setPreferredSize(streched);
-				center.add(buttons[i]);
+			if (i == 3 || i == 16) { // Make clear and equals stretched
+				buttons[i].setPreferredSize(stretched);
 			}
-			if (i == 14) {
+			if (i == 14) { // JLabel, setting size text position and font.
 				java.setPreferredSize(regular);
 				java.setHorizontalAlignment(SwingConstants.CENTER);
 				java.setFont(new Font("Monotyped", Font.BOLD, 10));
 				center.add(java);
 			}
-			if (i == 16) {
-				buttons[i].setPreferredSize(streched);
-				center.add(buttons[i]);
-			}
-			center.add(buttons[i]);
-			buttons[i].addActionListener(new Action());
+			center.add(buttons[i]); // Adding all buttons
+			buttons[i].addActionListener(new Action()); // along with ActionListener 
 		}
 	}
 	
 	/**
-	 * Initializes JFrame, makes it visible and non resizible.
+	 * Initializes JFrame, makes it visible and non resizable.
 	 */
 	private void initFrame() {
-		setTitle("Basic calculator");
+		setTitle("Simple Java calculator");
 		setSize(280, 370);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -197,10 +194,8 @@ public class Calculator extends JFrame {
 			} else {
 				sum /= num;
 			}
-
 			break;
 			default:
-	
 	}
 	sumText.setText("" + sum);
 	commaCounter = 0;
@@ -244,7 +239,6 @@ public class Calculator extends JFrame {
 						number += buttons[i].getText();
 						mathExpression += buttons [i].getText();
 						insertText.setText(mathExpression);
-						
 						if (isParsable) {
 							num = Double.parseDouble(number);
 						}

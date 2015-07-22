@@ -10,6 +10,7 @@ Vas zadatak je da uradite ovaj zadatak koristeći:
 4. HashSet
 5. Kombinaciju gore navedenih struktura da biste dobili što elegantnije rješenje
 
+
 #### Task from book
 7. Write a program that will read a text file selected by the user, and will make an alphabetical
 list of all the different words in that file. All words should be converted to lower case, and

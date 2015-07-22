@@ -144,7 +144,7 @@ public class SimpleTextEditor extends JFrame {
 			}
 			//
 			if (e.getSource() == about) {
-				JOptionPane.showMessageDialog(null,	"This simple text editor allows "
+				JOptionPane.showMessageDialog(null, "This simple text editor allows "
 										+ "you to import any file, edit it and save either to "
 										+ "same file or to a different one.\nYou can also select "
 										+ "any part of the text and copy it to a clipboard.",

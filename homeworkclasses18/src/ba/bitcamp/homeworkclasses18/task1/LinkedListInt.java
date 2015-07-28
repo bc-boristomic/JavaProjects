@@ -28,18 +28,18 @@ public class LinkedListInt {
 				&& temp.getValue().compareTo(getLastNode().getValue()) < 0) {
 			Node previous = start;
 			Node current = start.getNext();
-			while (temp.getValue().compareTo(previous.getValue()) < 0) {
+
+			while (temp.getValue() > current.getValue()) {
 				previous = current;
 				current = current.getNext();
 			}
 			previous.setNext(temp);
 			temp.setNext(current);
-		}
-		if (getLastNode().getValue() <= temp.getValue()) {
-			getLastNode().setNext(temp);
-			temp = getLastNode();
-		}
 
+		} else if (getLastNode().getValue() <= temp.getValue()) {
+			getLastNode().setNext(temp);
+
+		}
 	}
 
 	/**

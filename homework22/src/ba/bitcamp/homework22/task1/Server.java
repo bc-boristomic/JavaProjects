@@ -60,27 +60,16 @@ public class Server {
 
 				if (link.contains("10.0.82") && !map.containsValue(link)) {
 					map.put(name, link);
+					fileWriter.write(link + " " + name);
+					fileWriter.newLine();
+					fileWriter.flush();
 				}
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (NullPointerException e) {
-			try {
-				Set keys = map.keySet();
-
-				Iterator i = keys.iterator();
-				while (i.hasNext()) {
-					String key = (String) i.next();
-					String value = map.get(key);
-					fileWriter.write(value + " " + key);
-					fileWriter.newLine();
-					fileWriter.flush();
-				}
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-
+			e.printStackTrace();
 		}
 	}
 

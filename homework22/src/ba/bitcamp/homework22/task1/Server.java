@@ -10,9 +10,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashMap;
+import java.net.URLConnection;
 import java.util.LinkedList;
-import java.util.Map;
 
 /**
  * Public class Server opens a server at port 8888 that listens for client
@@ -58,7 +57,7 @@ public class Server {
 				name = reader.readLine();
 				link = reader.readLine();
 
-				if (isValidURL(link) && !addresses.contains(link)) {
+				if (netIsAvailable(link) && !addresses.contains(link)) {
 					addresses.add(link);
 					fileWriter.write(link + " " + name);
 					fileWriter.newLine();
@@ -81,16 +80,16 @@ public class Server {
 	 * @return <code>boolean</code> type value true if link is valid, false if
 	 *         not
 	 */
-	public static boolean isValidURL(String url) {
-
-		URL u = null;
+	private static boolean netIsAvailable(String link) {
 		try {
-			u = new URL(url);
+			URL url = new URL(link);
+			url.toURI();
+			URLConnection conn = url.openConnection();
+			conn.connect();
 		} catch (MalformedURLException e) {
 			return false;
-		}
-		try {
-			u.toURI();
+		} catch (IOException e) {
+			return false;
 		} catch (URISyntaxException e) {
 			return false;
 		}

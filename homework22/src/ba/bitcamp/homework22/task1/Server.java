@@ -5,13 +5,14 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Public class Server opens a server at port 8888 that listens for client
@@ -35,7 +36,6 @@ public class Server {
 
 	public static void main(String[] args) {
 
-		Map<String, String> map = new HashMap<>();
 		LinkedList<String> addresses = new LinkedList<>();
 		BufferedWriter fileWriter = null;
 
@@ -58,8 +58,8 @@ public class Server {
 				name = reader.readLine();
 				link = reader.readLine();
 
-				if (link.contains("10.0.82") && !map.containsValue(link)) {
-					map.put(name, link);
+				if (isValidURL(link) && !addresses.contains(link)) {
+					addresses.add(link);
 					fileWriter.write(link + " " + name);
 					fileWriter.newLine();
 					fileWriter.flush();
@@ -71,6 +71,30 @@ public class Server {
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Checks if given URL link is valid.
+	 * 
+	 * @param url
+	 *            <code>String</code> type value of URL address
+	 * @return <code>boolean</code> type value true if link is valid, false if
+	 *         not
+	 */
+	public static boolean isValidURL(String url) {
+
+		URL u = null;
+		try {
+			u = new URL(url);
+		} catch (MalformedURLException e) {
+			return false;
+		}
+		try {
+			u.toURI();
+		} catch (URISyntaxException e) {
+			return false;
+		}
+		return true;
 	}
 
 }

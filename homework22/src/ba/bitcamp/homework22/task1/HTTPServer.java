@@ -47,9 +47,9 @@ public class HTTPServer {
 
 					String address = "src/index.html";
 
-					if (wantedAddress[1].equals("/classmates.html")
-							|| wantedAddress[1].equals("/classmates")) {
-						address = "src/classmates.html";
+					if (wantedAddress[1].equals("/other.html")
+							|| wantedAddress[1].equals("/other")) {
+						address = "src/other.html";
 						printIps = true;
 					}
 
@@ -69,7 +69,7 @@ public class HTTPServer {
 					while (fileRead.ready()) {
 						String line = fileRead.readLine();
 						String[] s = line.split(" ", 2);
-						htmlDoc += "<a href = http://" + s[0] + ">" + s[1]
+						htmlDoc += "<a href = " + s[0] + ">" + s[1]
 								+ "</a>" + "<br>\n";
 					}
 				}

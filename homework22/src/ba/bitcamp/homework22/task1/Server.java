@@ -5,12 +5,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.LinkedList;
 
 /**
@@ -57,7 +53,7 @@ public class Server {
 				name = reader.readLine();
 				link = reader.readLine();
 
-				if (netIsAvailable(link) && !addresses.contains(link)) {
+				if (NetUtils.netIsAvailable(link) && !addresses.contains(link)) {
 					addresses.add(link);
 					fileWriter.write(link + " " + name);
 					fileWriter.newLine();
@@ -72,28 +68,5 @@ public class Server {
 		}
 	}
 
-	/**
-	 * Checks if given URL link is valid.
-	 * 
-	 * @param url
-	 *            <code>String</code> type value of URL address
-	 * @return <code>boolean</code> type value true if link is valid, false if
-	 *         not
-	 */
-	private static boolean netIsAvailable(String link) {
-		try {
-			URL url = new URL(link);
-			url.toURI();
-			URLConnection conn = url.openConnection();
-			conn.connect();
-		} catch (MalformedURLException e) {
-			return false;
-		} catch (IOException e) {
-			return false;
-		} catch (URISyntaxException e) {
-			return false;
-		}
-		return true;
-	}
-
+	
 }

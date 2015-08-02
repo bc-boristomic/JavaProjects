@@ -23,6 +23,7 @@ public class HTTPServer {
 
 	private static final int HTTP_PORT = 8080;
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 
 		ServerSocket http;
@@ -39,7 +40,7 @@ public class HTTPServer {
 						new InputStreamReader(client.getInputStream()));
 
 				BufferedReader fileReader = null;
-				String htmlDoc = "";
+				StringBuilder htmlDoc = new StringBuilder();
 				boolean printIps = false;
 				try {
 					String fromClient = clientReader.readLine();
@@ -60,7 +61,7 @@ public class HTTPServer {
 					continue;
 				}
 				while (fileReader.ready()) {
-					htmlDoc += fileReader.readLine();
+					htmlDoc.append(fileReader.readLine());
 				}
 
 				BufferedReader fileRead = new BufferedReader(new FileReader(
@@ -69,14 +70,13 @@ public class HTTPServer {
 					while (fileRead.ready()) {
 						String line = fileRead.readLine();
 						String[] s = line.split(" ", 2);
-						htmlDoc += "<a href = " + s[0] + ">" + s[1]
-								+ "</a>" + "<br>\n";
+						htmlDoc.append("<a href = ").append(s[0]).append(">").append(s[1]).append("</a>" + "<br>\n");
 					}
 				}
 				fileRead.close();
 
-				htmlDoc += "</body></html>";
-				clientWriter.write(htmlDoc);
+				htmlDoc.append("</body></html>");
+				clientWriter.write(htmlDoc.toString());
 				clientWriter.close();
 				client.close();
 			}

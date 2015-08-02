@@ -70,7 +70,7 @@ public class HTTPServer {
 					while (fileRead.ready()) {
 						String line = fileRead.readLine();
 						String[] s = line.split(" ", 2);
-						htmlDoc.append("<a href = ").append(s[0]).append(">").append(s[1]).append("</a>" + "<br>\n");
+						htmlDoc.append("<a href = ").append(s[0]).append(">").append(s[1]).append("</a><br>");
 					}
 				}
 				fileRead.close();

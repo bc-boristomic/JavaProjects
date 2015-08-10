@@ -21,6 +21,7 @@ public class MyPanel extends JPanel {
 		try {
 			image = ImageIO.read(new File("src/image.jpg"));
 		} catch (IOException e) {
+			//Znaci pokusaj simulirati padanje ovog dijela koda pa ces vidjeti sta ce se desiti dalje ;)
 			e.printStackTrace();
 		}
 	}

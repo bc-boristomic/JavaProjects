@@ -36,6 +36,16 @@ public class FilesAndThreads {
 		readFromFile();
 		int numOfLetters = letters.size();
 		int numOfTasks = 20;
+		//Zamalo pa utrefi, ali ovdje imas ipak malu fulu ;)
+		//Uzmi da se u fajlu nalazi npr, 101 slovo i podjeli ovo sa brojem taskova 20 i dobit ces 5,05
+		//posto radis stavljanje u int ti ces dobiti vrijednost 5
+		//Sada kada ovo stavis u svoju logiku imat ces: 0 - 5, 6 - 10 ,... 95 - 100 i kao sto vidimo 101 slovo
+		//nece nikada biti procitano.
+		//Dodaj logiku za provjeru da 21 Job preuzme npr, sve sto ne udje u ovih prvih 20 taskova tj,
+		//int leftOver = numOfLetters % numOfTasks;
+		//A zatim to predas Job-u koji uzme Job 21 da to obradi.
+		//Ili ako hoces sve sto ne bude ucitano sa prvih 19 Jobova daj zadnjem Jobu da obradi tj, imat ces 95 - 101.
+		//Mislim da ce ti problem predstavljati sva slova od 101 do 109 jer kada predje 5.5 moguce da zaokruzi na 6 int tip.
 		int load = numOfLetters / numOfTasks;
 
 		for (int i = 0; i < numOfTasks; i++) {

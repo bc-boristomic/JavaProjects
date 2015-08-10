@@ -29,6 +29,13 @@ public class Main extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 
+//Mislim da si ovdje pogresno pretpostavio.
+//Znaci ovaj dio koda si pogresno postavio.
+//Previse se oslanjas na cinjenicu da je slika ucitana i kada se desi greska ovdje ce ti pasti NullPointException
+//Razlog zbog kojeg ce pasti je cinjenica da konstantno vi po kodu kazete samo e.printStackTrace(); i tu puno grijesite
+//Ovo znaci da si samo ispisao gresku na konzolu i da je nisi propagirao vise nigdje (ili ti ga zargonski progutao si exception)
+//Znaci da bi ti ovo bio siguran kod trebao si tamo gdje citas sliku uradit throw e;
+//A ovdje dodati try i catch oko citave logike (posto ako to padne ostala logika nema smisla uopce)!
 		for (int i = 0; i < panel.getImage().getHeight(); i++) {
 			jobs.add(new Job(panel.getImage().getWidth(), i));
 		}
@@ -42,6 +49,7 @@ public class Main extends JFrame {
 		for (Worker w : workers) {
 			try {
 				w.join();
+				//Ovo konstantno svi radite tj, gutanje exception-a i idete logikom happy path-a
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

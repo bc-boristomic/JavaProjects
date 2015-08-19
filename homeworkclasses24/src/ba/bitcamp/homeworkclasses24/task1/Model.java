@@ -46,11 +46,25 @@ public abstract class Model {
 	 * @param value
 	 *            <code>String</code> type value of inputed value to find in
 	 *            table
-	 * @return <code>String</code> type value of attribute from table
+	 * @return <code>String</code> type value of row from table
 	 */
 	public String findByAtibute(String attribute, String value) {
-		return "SELECT " + attribute + "FROM " + tableName + " WHERE "
-				+ attribute + " = " + value;
+		if (attribute != null && value != null) {
+			return "SELECT * FROM " + tableName + " WHERE " + attribute + " = "
+					+ value;
+		} else {
+			return customErrorMessage();
+		}
+	}
+
+	/**
+	 * This method is used to return custom error message that might happen in
+	 * case when all parameters are not inputed.
+	 * 
+	 * @return <code>String</code> type value of error message
+	 */
+	private String customErrorMessage() {
+		return "Seems like your input is invalid, check to see if you inputed all required elements.";
 	}
 
 	/**

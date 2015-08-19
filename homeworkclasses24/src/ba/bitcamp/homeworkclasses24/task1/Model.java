@@ -50,8 +50,8 @@ public abstract class Model {
 	 */
 	public String findByAtibute(String attribute, String value) {
 		if (attribute != null && value != null) {
-			return "SELECT * FROM " + tableName + " WHERE " + attribute + " = "
-					+ value;
+			return "SELECT * FROM " + tableName + " WHERE " + attribute
+					+ " = '" + value + "'";
 		} else {
 			return customErrorMessage();
 		}

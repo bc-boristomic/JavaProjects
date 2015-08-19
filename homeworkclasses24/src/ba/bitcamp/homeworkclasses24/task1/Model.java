@@ -35,7 +35,15 @@ public abstract class Model {
 	 * @return <code>String</code> type value of selected table row
 	 */
 	public String findByPk(Integer id) {
-		return "SELECT * FROM " + tableName + " WHERE id = " + id;
+		StringBuilder sb = new StringBuilder();
+		if (id != null) {
+			sb.append("SELECT * FROM ").append(tableName);
+			sb.append(" WHERE id = ").append(id);
+			return sb.toString();
+		} else {
+			return customErrorMessage();
+		}
+
 	}
 
 	/**
@@ -49,9 +57,11 @@ public abstract class Model {
 	 * @return <code>String</code> type value of row from table
 	 */
 	public String findByAtibute(String attribute, String value) {
+		StringBuilder sb = new StringBuilder();
 		if (attribute != null && value != null) {
-			return "SELECT * FROM " + tableName + " WHERE " + attribute
-					+ " = '" + value + "'";
+			sb.append("SELECT * FROM ").append(tableName).append(" WHERE ");
+			sb.append(attribute).append(" = '").append(value).append("'");
+			return sb.toString();
 		} else {
 			return customErrorMessage();
 		}

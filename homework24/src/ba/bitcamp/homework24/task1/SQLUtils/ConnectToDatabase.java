@@ -29,7 +29,7 @@ public class ConnectToDatabase {
 		try {
 
 			Class.forName("org.sqlite.JDBC");
-			conn = DriverManager.getConnection("jdbc:sqlite:complaintbook.db");
+			conn = DriverManager.getConnection("jdbc:sqlite:databases/complaintbook.db");
 			statement = conn.createStatement();
 
 		} catch (ClassNotFoundException e) {

@@ -42,7 +42,7 @@ public class SetupDataBase {
 
 		try {
 
-			conn = DriverManager.getConnection("jdbc:sqlite:complaintbook.db");
+			conn = DriverManager.getConnection("jdbc:sqlite:databases/complaintbook.db");
 			Statement statement = conn.createStatement();
 
 			StringBuilder sb = new StringBuilder();

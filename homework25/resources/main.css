@@ -1,0 +1,70 @@
+* {
+	background: red;
+}
+
+.header {
+	border: 10px;
+	height: 100px;
+	background-image: url(http://i.ytimg.com/vi/Lm8imjmZ91U/maxresdefault.jpg);
+	background-size: 10%
+}
+
+.main {
+	display: inline-block;
+}
+
+#links {
+	position: absolute;
+    top: 9em;
+    left: 1em;
+	width: auto;
+	padding: 10px;
+}
+
+li a {
+	font-size: 15;
+	font-family: Verdana, sans-serif;
+	text-decoration: none;
+	color: yellow;
+}
+
+li {
+	list-style: none;
+	padding: 10px;
+}
+
+li a:hover {
+	text-decoration: underline;
+	color: blue;
+}
+
+#text {
+	position: absolute;
+    top: 9em;
+    left: 25em;
+    width: 9em;
+	width: 50%;
+	display: inline;
+}
+
+p {
+	font-size: 18px;
+	font-family: Helvetica, Georgia, Garamond, sans-serif;
+}
+
+#right {
+	position: absolute;
+	top: 9em;
+	right: 2em;
+	width: auto;
+}
+
+.bird {
+	text-decoration: none;
+	color: yellow;
+}
+
+.bird:hover {
+	text-decoration: underline;
+	color: yellow;
+}

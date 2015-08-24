@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Complaint {
 
-	private Integer id;
+	private Long id;
 	private String complaint;
 	private String date;
 
@@ -44,14 +44,14 @@ public class Complaint {
 	 * read from database.
 	 * 
 	 * @param id
-	 *            <code>Integer</code> type value of primary key
+	 *            <code>Long</code> type value of primary key
 	 * @param complaint
 	 *            <code>String</code> type value of complaint message
 	 * @param date
 	 *            <code>String</code> type value of date when complaint was
 	 *            logged
 	 */
-	public Complaint(Integer id, String complaint, String date) {
+	public Complaint(Long id, String complaint, String date) {
 		this.id = id;
 		this.complaint = complaint;
 		this.date = date;
@@ -69,9 +69,9 @@ public class Complaint {
 	/**
 	 * Default getter for id
 	 * 
-	 * @return <code>Integer</code> type value of id
+	 * @return <code>Long</code> type value of id
 	 */
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 

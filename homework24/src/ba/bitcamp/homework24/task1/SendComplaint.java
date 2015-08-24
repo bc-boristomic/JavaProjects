@@ -5,8 +5,9 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.Types;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +16,7 @@ import javax.swing.JTextField;
 
 import ba.bitcamp.homework24.task1.ComplaintPrototype.Complaint;
 import ba.bitcamp.homework24.task1.SQLUtils.ConnectToDatabase;
+import ba.bitcamp.homework24.task1.SQLUtils.SQLStringConstants;
 
 /**
  * Class SendComplaint extends JFrame and is used to setup GUI interface for
@@ -32,14 +34,10 @@ public class SendComplaint extends JFrame {
 	private JTextField complaint = new JTextField();
 	private JButton send = new JButton("Send");
 
-	private Connection conn;
-	private Statement statement;
-
 	/**
 	 * Default constructor of SendComplaint class
 	 */
 	public SendComplaint() {
-		statement = ConnectToDatabase.connect(conn, statement);
 		initGUIParts();
 	}
 
@@ -83,29 +81,49 @@ public class SendComplaint extends JFrame {
 			if (e.getSource() == send) {
 				Complaint temp = new Complaint(complaint.getText());
 
-				StringBuilder sb = new StringBuilder();
-
-				sb.append("INSERT INTO complaint VALUES(");
-				sb.append(temp.getId());
-				sb.append(", '");
-				sb.append(temp.getComplaint());
-				sb.append("', '");
-				sb.append(temp.getDate());
-				sb.append("');");
+				Connection conn = ConnectToDatabase.getConnection();
+				PreparedStatement preparedStatement = null;
 
 				try {
-
-					statement.executeUpdate(sb.toString());
-
+					preparedStatement = conn.prepareStatement(SQLStringConstants.ADD_TO_DB);
+					preparedStatement.setNull(1, Types.NULL);
+					preparedStatement.setString(2, temp.getComplaint());
+					preparedStatement.setString(3, temp.getDate());
+					preparedStatement.executeUpdate();
 					complaint.setText("");
+					System.out.println("Complaint logged at database.");
 				} catch (SQLException ex) {
 					System.out
 							.println("Could not add new complaint to database.");
 					System.err.println("Error message: " + ex.getMessage());
 					System.err.println("SQL error: " + ex.getErrorCode());
+				} finally {
+					if (preparedStatement != null) {
+						try {
+							preparedStatement.close();
+						} catch (SQLException ex) {
+							System.out
+									.println("Could not close PreparedStatement");
+							System.err.println("Error message: "
+									+ ex.getMessage());
+							System.err.println("SQL error: "
+									+ ex.getErrorCode());
+						}
+					}
+					if (conn != null) {
+						try {
+							conn.close();
+						} catch (SQLException ex) {
+							System.out
+									.println("Could not close connection to database "
+											+ SQLStringConstants.SQL_DB_LOCATION);
+							System.err.println("Error message: "
+									+ ex.getMessage());
+							System.err.println("SQL error: "
+									+ ex.getErrorCode());
+						}
+					}
 				}
-
-				System.out.println("Complaint logged at database.");
 
 			}
 

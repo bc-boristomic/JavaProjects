@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,7 +32,6 @@ public class ViewComplaints extends JFrame {
 	private JLabel complaintsLabel = new JLabel();
 	private JScrollPane scroll = new JScrollPane();
 
-	private Connection conn;
 	private Statement statement;
 
 	private ArrayList<Complaint> allComplaints = new ArrayList<>();
@@ -42,7 +40,7 @@ public class ViewComplaints extends JFrame {
 	 * Default constructor of ViewComplaint class
 	 */
 	public ViewComplaints() {
-		statement = ConnectToDatabase.connect(conn, statement);
+		statement = ConnectToDatabase.connect(statement);
 		initGUIPart();
 	}
 
@@ -110,7 +108,7 @@ public class ViewComplaints extends JFrame {
 							.executeQuery("select * from complaint");
 
 					while (res.next()) {
-						Integer id = res.getInt(1);
+						Long id = res.getLong(1);
 						String complaint = res.getString(2);
 						String date = res.getString(3);
 						Complaint temp = new Complaint(id, complaint, date);

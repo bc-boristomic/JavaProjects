@@ -62,6 +62,54 @@ public class SendComplaint extends JFrame {
 	}
 
 	/**
+	 * Connects to database, prepares statement that needs to be logged to DB,
+	 * updates DB with new record. If everything goes well closes statement and
+	 * connection to DB.
+	 */
+	private void logComplaintToDB() {
+		Complaint temp = new Complaint(complaint.getText());
+
+		Connection conn = ConnectToDatabase.getConnection();
+		PreparedStatement preparedStatement = null;
+
+		try {
+			preparedStatement = conn
+					.prepareStatement(SQLStringConstants.ADD_TO_DB);
+			preparedStatement.setNull(1, Types.NULL);
+			preparedStatement.setString(2, temp.getComplaint());
+			preparedStatement.setString(3, temp.getDate());
+			preparedStatement.executeUpdate();
+			complaint.setText("");
+			System.out.println("Complaint logged at database.");
+		} catch (SQLException ex) {
+			System.out.println("Could not add new complaint to database.");
+			System.err.println("Error message: " + ex.getMessage());
+			System.err.println("SQL error: " + ex.getErrorCode());
+		} finally {
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException ex) {
+					System.out.println("Could not close PreparedStatement");
+					System.err.println("Error message: " + ex.getMessage());
+					System.err.println("SQL error: " + ex.getErrorCode());
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+					System.out
+							.println("Could not close connection to database "
+									+ SQLStringConstants.SQL_DB_LOCATION);
+					System.err.println("Error message: " + ex.getMessage());
+					System.err.println("SQL error: " + ex.getErrorCode());
+				}
+			}
+		}
+	}
+
+	/**
 	 * Private class used to add action to send button. When button is pressed a
 	 * new complaint is created, complaint message is taken from complaint GUI
 	 * box (JTextField). String is builded to input all the data to database.
@@ -79,52 +127,7 @@ public class SendComplaint extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == send) {
-				Complaint temp = new Complaint(complaint.getText());
-
-				Connection conn = ConnectToDatabase.getConnection();
-				PreparedStatement preparedStatement = null;
-
-				try {
-					preparedStatement = conn.prepareStatement(SQLStringConstants.ADD_TO_DB);
-					preparedStatement.setNull(1, Types.NULL);
-					preparedStatement.setString(2, temp.getComplaint());
-					preparedStatement.setString(3, temp.getDate());
-					preparedStatement.executeUpdate();
-					complaint.setText("");
-					System.out.println("Complaint logged at database.");
-				} catch (SQLException ex) {
-					System.out
-							.println("Could not add new complaint to database.");
-					System.err.println("Error message: " + ex.getMessage());
-					System.err.println("SQL error: " + ex.getErrorCode());
-				} finally {
-					if (preparedStatement != null) {
-						try {
-							preparedStatement.close();
-						} catch (SQLException ex) {
-							System.out
-									.println("Could not close PreparedStatement");
-							System.err.println("Error message: "
-									+ ex.getMessage());
-							System.err.println("SQL error: "
-									+ ex.getErrorCode());
-						}
-					}
-					if (conn != null) {
-						try {
-							conn.close();
-						} catch (SQLException ex) {
-							System.out
-									.println("Could not close connection to database "
-											+ SQLStringConstants.SQL_DB_LOCATION);
-							System.err.println("Error message: "
-									+ ex.getMessage());
-							System.err.println("SQL error: "
-									+ ex.getErrorCode());
-						}
-					}
-				}
-
+				logComplaintToDB();
 			}
 
 		}

@@ -3,7 +3,6 @@ package ba.bitcamp.homework24.task1.SQLUtils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Utility class used to setup connection to DB.
@@ -14,36 +13,12 @@ import java.sql.Statement;
 public class ConnectToDatabase {
 
 	/**
-	 * Upon connecting to complaintbook.db database returns Statement with
-	 * established connection ready for IO.
+	 * Establishes connection to complaintbook.db and returns connection. If
+	 * connection can't be established exception will be printed to standard
+	 * output.
 	 * 
-	 * @param conn
-	 *            <code>Connection</code> type value of connection to database
-	 * @param statement
-	 *            <code>Statement</code> type value of statement ready for IO at
-	 *            connected database
-	 * @return <code>Statement</code> ready to use for query
-	 */
-	public static Statement connect(Statement statement) {
-
-		Connection conn = null;
-		try {
-			conn = getConnection();
-			statement = conn.createStatement();
-		} catch (SQLException e) {
-			System.out
-					.println("Connection to 'ComplaintBook' database could not be established.");
-			System.err.println("Error message: " + e.getMessage());
-			System.exit(1);
-		}
-
-		System.out.println("Connection to database established");
-		return statement;
-	}
-
-	/**
-	 * 
-	 * @return
+	 * @return <code>Connection</code> type value that is connected to db
+	 *         location
 	 */
 	public static Connection getConnection() {
 

@@ -1,9 +1,11 @@
 package ba.bitcamp.homework24.task1.InitializeDatabase;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import ba.bitcamp.homework24.task1.SQLUtils.ConnectToDatabase;
+import ba.bitcamp.homework24.task1.SQLUtils.SQLStringConstants;
 
 /**
  * DO NOT RUN IF YOU ALREADY HAVE INITIALIZED DB.
@@ -16,7 +18,7 @@ import java.sql.Statement;
  * of 255 characters, and string for date with max length of 25 characters.
  * <p>
  * If there are not errors in the way message
- * "Database 'ComplaintBook' with table Complaint initialized." will be printet
+ * "Database 'ComplaintBook' with table Complaint initialized." will be printed
  * to standard output.
  *
  *
@@ -28,41 +30,39 @@ public class SetupDataBase {
 
 	public static void main(String[] args) {
 
-		Connection conn = null;
+		Connection conn = ConnectToDatabase.getConnection();
+		Statement statement = null;
 
 		try {
-
-			Class.forName("org.sqlite.JDBC");
-
-		} catch (ClassNotFoundException e) {
-			System.out.println("Could not load JDBC driver");
-			System.err.println("Error message: " + e.getMessage());
-			System.exit(1);
-		}
-
-		try {
-
-			conn = DriverManager.getConnection("jdbc:sqlite:databases/complaintbook.db");
-			Statement statement = conn.createStatement();
-
-			StringBuilder sb = new StringBuilder();
-			sb.append("DROP TABLE IF EXISTS complaint;");
-			sb.append("CREATE TABLE complaint ");
-			sb.append("(id INTEGER PRIMARY KEY, ");
-			sb.append("complaint VARCHAR(255) NOT NULL, ");
-			sb.append("date VARCHAR(25) NOT NULL);");
-
-			statement.executeUpdate(sb.toString());
-
+			statement = conn.createStatement();
+			statement.executeUpdate(SQLStringConstants.CREATE_COMPLAINT_TABLE);
+			System.out.println("New table created");
 		} catch (SQLException e) {
-			System.out
-					.println("Connection to 'ComplaintBook' database could not be established.");
+			System.out.println("Could not update database with table");
 			System.err.println("Error message: " + e.getMessage());
-			System.exit(1);
+			System.err.println("SQL error: " + e.getErrorCode());
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException ex) {
+					System.out.println("Could not close PreparedStatement");
+					System.err.println("Error message: " + ex.getMessage());
+					System.err.println("SQL error: " + ex.getErrorCode());
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+					System.out
+							.println("Could not close connection to database "
+									+ SQLStringConstants.SQL_DB_LOCATION);
+					System.err.println("Error message: " + ex.getMessage());
+					System.err.println("SQL error: " + ex.getErrorCode());
+				}
+			}
 		}
-
-		System.out
-				.println("Database 'ComplaintBook' with table Complaint initialized.");
 
 	}
 

@@ -4,9 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import javax.swing.JScrollPane;
 
 import ba.bitcamp.homework24.task1.ComplaintPrototype.Complaint;
 import ba.bitcamp.homework24.task1.SQLUtils.ConnectToDatabase;
+import ba.bitcamp.homework24.task1.SQLUtils.SQLStringConstants;
 
 /**
  * ViewComplaint class extends JFrame and is used to setup GUI interface for
@@ -32,15 +34,12 @@ public class ViewComplaints extends JFrame {
 	private JLabel complaintsLabel = new JLabel();
 	private JScrollPane scroll = new JScrollPane();
 
-	private Statement statement;
-
 	private ArrayList<Complaint> allComplaints = new ArrayList<>();
 
 	/**
 	 * Default constructor of ViewComplaint class
 	 */
 	public ViewComplaints() {
-		statement = ConnectToDatabase.connect(statement);
 		initGUIPart();
 	}
 
@@ -85,6 +84,70 @@ public class ViewComplaints extends JFrame {
 	}
 
 	/**
+	 * Connects to DB, executes query that select all elements from complaint
+	 * table. Builds a Complaint object, of object is not in the list of
+	 * complaints it is added to the list. Closes all connections to DB.
+	 */
+	private void addComplaintsToArrayList() {
+		Connection conn = ConnectToDatabase.getConnection();
+		PreparedStatement statement = null;
+		ResultSet res = null;
+		try {
+			statement = conn
+					.prepareStatement(SQLStringConstants.READ_ALL_FROM_DB);
+
+			res = statement.executeQuery();
+
+			while (res.next()) {
+				Long id = res.getLong(SQLStringConstants.COMPLAINT_ID);
+				String complaint = res
+						.getString(SQLStringConstants.COMPLAINT_COMPLAINT);
+				String date = res.getString(SQLStringConstants.COMPLAINT_DATE);
+				Complaint temp = new Complaint(id, complaint, date);
+				if (!allComplaints.contains(temp)) {
+					allComplaints.add(temp);
+				}
+			}
+		} catch (SQLException ex) {
+			System.out.println("Could not read from table");
+			System.err.println("Error message: " + ex.getMessage());
+			System.err.println("SQL error: " + ex.getErrorCode());
+			System.err.println("SQL error: " + ex.getSQLState());
+			System.exit(1);
+		} finally {
+			if (res != null) {
+				try {
+					res.close();
+				} catch (SQLException ex) {
+					System.out.println("Could not close ResulSet");
+					System.err.println("Error message: " + ex.getMessage());
+					System.err.println("SQL error: " + ex.getErrorCode());
+				}
+			}
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException ex) {
+					System.out.println("Could not close PreparedStatement");
+					System.err.println("Error message: " + ex.getMessage());
+					System.err.println("SQL error: " + ex.getErrorCode());
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+					System.out
+							.println("Could not close connection to database "
+									+ SQLStringConstants.SQL_DB_LOCATION);
+					System.err.println("Error message: " + ex.getMessage());
+					System.err.println("SQL error: " + ex.getErrorCode());
+				}
+			}
+		}
+	}
+
+	/**
 	 * Private inner class used to add action to update button. When button is
 	 * pressed query is sent to database to select all complaints from complaint
 	 * table. Complaints are parsed, temp Complaint object is created and if not
@@ -101,29 +164,7 @@ public class ViewComplaints extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == update) {
-
-				try {
-
-					ResultSet res = statement
-							.executeQuery("select * from complaint");
-
-					while (res.next()) {
-						Long id = res.getLong(1);
-						String complaint = res.getString(2);
-						String date = res.getString(3);
-						Complaint temp = new Complaint(id, complaint, date);
-						if (!allComplaints.contains(temp)) {
-							allComplaints.add(temp);
-						}
-					}
-				} catch (SQLException ex) {
-					System.out.println("Could not read from table");
-					System.err.println("Error message: " + ex.getMessage());
-					System.err.println("SQL error: " + ex.getErrorCode());
-					System.err.println("SQL error: " + ex.getSQLState());
-					System.exit(1);
-				}
-
+				addComplaintsToArrayList();
 				updateComplaintsLabel();
 			}
 
@@ -131,7 +172,7 @@ public class ViewComplaints extends JFrame {
 	}
 
 	/**
-	 * main method that runs the programm
+	 * main method that runs the program
 	 * 
 	 * @param args
 	 */

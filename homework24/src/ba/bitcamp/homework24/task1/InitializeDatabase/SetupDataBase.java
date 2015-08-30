@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import ba.bitcamp.homework24.task1.SQLUtils.CloseConnections;
 import ba.bitcamp.homework24.task1.SQLUtils.ConnectToDatabase;
 import ba.bitcamp.homework24.task1.SQLUtils.SQLStringConstants;
 
@@ -42,26 +43,8 @@ public class SetupDataBase {
 			System.err.println("Error message: " + e.getMessage());
 			System.err.println("SQL error: " + e.getErrorCode());
 		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException ex) {
-					System.out.println("Could not close PreparedStatement");
-					System.err.println("Error message: " + ex.getMessage());
-					System.err.println("SQL error: " + ex.getErrorCode());
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-					System.out
-							.println("Could not close connection to database "
-									+ SQLStringConstants.SQL_DB_LOCATION);
-					System.err.println("Error message: " + ex.getMessage());
-					System.err.println("SQL error: " + ex.getErrorCode());
-				}
-			}
+			CloseConnections.closeStatement(statement);
+			CloseConnections.closeConnection(conn);
 		}
 
 	}

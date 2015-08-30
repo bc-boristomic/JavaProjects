@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 import ba.bitcamp.homework24.task1.ComplaintPrototype.Complaint;
+import ba.bitcamp.homework24.task1.SQLUtils.CloseConnections;
 import ba.bitcamp.homework24.task1.SQLUtils.ConnectToDatabase;
 import ba.bitcamp.homework24.task1.SQLUtils.SQLStringConstants;
 
@@ -115,35 +116,9 @@ public class ViewComplaints extends JFrame {
 			System.err.println("SQL error: " + ex.getSQLState());
 			System.exit(1);
 		} finally {
-			if (res != null) {
-				try {
-					res.close();
-				} catch (SQLException ex) {
-					System.out.println("Could not close ResulSet");
-					System.err.println("Error message: " + ex.getMessage());
-					System.err.println("SQL error: " + ex.getErrorCode());
-				}
-			}
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException ex) {
-					System.out.println("Could not close PreparedStatement");
-					System.err.println("Error message: " + ex.getMessage());
-					System.err.println("SQL error: " + ex.getErrorCode());
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-					System.out
-							.println("Could not close connection to database "
-									+ SQLStringConstants.SQL_DB_LOCATION);
-					System.err.println("Error message: " + ex.getMessage());
-					System.err.println("SQL error: " + ex.getErrorCode());
-				}
-			}
+			CloseConnections.closeResultSet(res);
+			CloseConnections.closePreparedStatement(statement);
+			CloseConnections.closeConnection(conn);
 		}
 	}
 

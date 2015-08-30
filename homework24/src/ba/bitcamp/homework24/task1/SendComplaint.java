@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import ba.bitcamp.homework24.task1.ComplaintPrototype.Complaint;
+import ba.bitcamp.homework24.task1.SQLUtils.CloseConnections;
 import ba.bitcamp.homework24.task1.SQLUtils.ConnectToDatabase;
 import ba.bitcamp.homework24.task1.SQLUtils.SQLStringConstants;
 
@@ -86,26 +87,8 @@ public class SendComplaint extends JFrame {
 			System.err.println("Error message: " + ex.getMessage());
 			System.err.println("SQL error: " + ex.getErrorCode());
 		} finally {
-			if (preparedStatement != null) {
-				try {
-					preparedStatement.close();
-				} catch (SQLException ex) {
-					System.out.println("Could not close PreparedStatement");
-					System.err.println("Error message: " + ex.getMessage());
-					System.err.println("SQL error: " + ex.getErrorCode());
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-					System.out
-							.println("Could not close connection to database "
-									+ SQLStringConstants.SQL_DB_LOCATION);
-					System.err.println("Error message: " + ex.getMessage());
-					System.err.println("SQL error: " + ex.getErrorCode());
-				}
-			}
+			CloseConnections.closePreparedStatement(preparedStatement);
+			CloseConnections.closeConnection(conn);
 		}
 	}
 
@@ -129,9 +112,7 @@ public class SendComplaint extends JFrame {
 			if (e.getSource() == send) {
 				logComplaintToDB();
 			}
-
 		}
-
 	}
 
 	/**

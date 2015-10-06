@@ -1,0 +1,56 @@
+* {
+	background:red;
+}
+
+body {
+ 	display: flex;
+ }
+
+nav {
+	padding-top: 7%;
+	width: 10%;
+  	display: inline-block;
+}
+
+table {
+	width: 50%;
+	padding-top: 2%;
+	display: inline-block;
+	padding-left: 17%;
+}
+
+td {
+	margin:50px;
+    padding:10px;
+    border:black;
+    font-size:30px;
+    font-family:fantasy;
+    color:burlywood;  
+	border-bottom:2px dotted black;
+}
+
+#title {
+	font-size:35px;
+}
+
+th {
+	color: burlywood;
+	font-size: 30px;
+	font-family: Verdana, Garamond, sans-serif;
+	border:black;
+	border-bottom:3px solid black
+ }
+
+.names {
+	border-right:2px dotted black;
+}
+
+a {
+	color:burlywood;
+    text-decoration:none;
+ }
+ 
+a:hover {
+     color:black;
+}
+

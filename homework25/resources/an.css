@@ -1,0 +1,51 @@
+* {
+	background: red;
+}
+
+.all {
+  display: -webkit-flex;
+  display: flex;
+}
+nav {
+	margin-top: 130px;
+  	width: 200px;
+}
+.column {
+  -webkit-flex: 1;
+          flex: 1;
+}
+
+section {
+	padding-left: 5%;
+	padding-right: 10%;
+	border-left: 1px solid black;
+}
+
+li {
+	list-style: none;
+	font-size: 18px;
+	padding-top: 7px; 
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: yellow;
+}
+
+#strong {
+	font-size: 18px;
+}
+
+#pic {
+	padding-left: 30%;
+	padding-bottom: 30px;
+}
+
+p {
+	text-align: justify;
+}

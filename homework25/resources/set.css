@@ -1,0 +1,47 @@
+* {
+	background: red;
+}
+
+#intro {
+	margin-left: 43%;
+	font-size: 30px;
+	color: yellow;
+	font-family: Verdana, sans-serif;
+}
+
+#link {
+	margin-left: 45%;
+	font-size: 15px;
+	font-family: Verdana, sans-serif;
+}
+
+.prim:hover {
+	color: yellow;
+}
+
+#gdiv {
+	display: inline-block;
+	width: 20%;
+	padding: 40px;
+}
+
+#images {
+	border: 5px solid white;
+	width: 100%;
+}
+
+#text {
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+	font-family: Garamond, sans-serif;
+} 
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+#gdiv:hover {
+	background: #B81818;
+}

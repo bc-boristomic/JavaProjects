@@ -1,0 +1,47 @@
+package ba.bitcamp.exercises.day2;
+
+import java.util.Arrays;
+
+public class StackOfStrings {
+
+	private String[] strings;
+	
+	public StackOfStrings() {
+		strings = new String[0];
+	}
+	
+	public boolean empty() {
+		return strings.length == 0;
+	}
+	
+	public String push(String value) {
+		strings = Arrays.copyOf(strings, strings.length + 1);
+		strings[strings.length - 1] = value;
+		return value;
+	}
+	
+	public String pop() {
+		String temp = strings[strings.length - 1];
+		strings = [strings.length - 1];		
+		return temp;
+	}
+	
+	public String peek() {
+		return strings[strings.length - 1];
+	}
+	
+	@Override
+	public String toString() {
+		return Arrays.toString(strings);
+	}
+	
+	/*
+	 * Napraviti klasu koja opisuje jedan stack String-ova. Klasa je
+	 * implementirana pomoću niza.
+	 * 
+	 * Implementirati isEmpty, push, pop i peek metode.
+	 */
+	
+	
+
+}

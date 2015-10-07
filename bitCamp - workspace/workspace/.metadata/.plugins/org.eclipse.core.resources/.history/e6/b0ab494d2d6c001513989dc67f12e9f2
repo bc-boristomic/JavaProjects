@@ -1,0 +1,46 @@
+package test;
+
+import java.util.Scanner;
+
+public class Zadatak1 {
+	
+	private static int getIntResult(String expression) {
+		int math = expression.indexOf('+');
+		if (math == -1) {
+			math = expression.indexOf('-');
+		}
+
+		String partOne = expression.substring(0, math);
+		String mathOperator = String.valueOf(expression.charAt(math));
+		String secondNumberString = expression.substring(math + 1,
+				expression.length());
+
+		int firstNumber = Integer.parseInt(partOne);
+		int secondNumber = Integer.parseInt(secondNumberString);
+		int result = 0;
+
+		switch (mathOperator) {
+		case "+":
+			result = firstNumber + secondNumber;
+			break;
+		case "-":
+			result = firstNumber - secondNumber;
+			break;
+		}
+		return result;
+	}
+
+	public static void main(String[] args) {
+
+		Scanner input = new Scanner(System.in);
+
+		System.out.println("Enter a math expresion.");
+		System.out.println("Expression can be of type x+x or x-x.");
+		System.out.println("Nothing else will pass.");
+		String expression = input.nextLine();
+		System.out.println(getIntResult(expression));		
+
+		input.close();
+	}
+
+}

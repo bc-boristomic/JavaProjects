@@ -1,0 +1,24 @@
+package ba.bitcamp.day3;
+
+import javax.swing.JFileChooser;
+
+public class Task1 {
+
+	public static void main(String[] args) {
+
+		/*
+		 * Preuzeti example.csv file sa Classroom-a. U njemu se nalazi spisak
+		 * radnika jedne kompanije.
+		 * 
+		 * Potrebno je napisati odgovarajuću klasu koja može prihvatiti jednog
+		 * radnika (jedan red file-a).
+		 * 
+		 * Sortirati po imenu i ispisati na konzolu radnike te firme.
+		 */
+		
+		JFileChooser choose = new JFileChooser(System.getProperty("usr.dir"));
+		choose.showOpenDialog(null);
+
+	}
+
+}

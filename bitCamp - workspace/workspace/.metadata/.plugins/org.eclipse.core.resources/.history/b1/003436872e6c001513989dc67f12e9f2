@@ -1,0 +1,62 @@
+package test;
+
+import java.util.Scanner;
+
+public class Zadatak1 {
+
+	private static Integer getIntResult(String expression) {
+		Integer result = 0;
+		String mathOperator = null;
+		Integer firstNumber = null;
+		Integer secondNumber = null;
+
+		// if ()
+		try {
+			Integer math = expression.indexOf('+');
+			if (math == -1) {
+				math = expression.indexOf('-');
+			}
+			mathOperator = String.valueOf(expression.charAt(math));
+			String partOne = expression.substring(0, math);
+			String partTwo = expression
+					.substring(math + 1, expression.length());
+			try {
+				firstNumber = Integer.parseInt(partOne);
+				secondNumber = Integer.parseInt(partTwo);
+			} catch (NumberFormatException e) {
+				System.err.println("Given string doesn't contain math expression "
+						+ e.getMessage());
+				return null;
+			}
+		} catch (StringIndexOutOfBoundsException e) {
+			System.err
+					.println("Could not parse given string " + e.getMessage());
+		}
+
+		if (mathOperator != null) {
+			switch (mathOperator) {
+			case "+":
+				result = firstNumber + secondNumber;
+				break;
+			case "-":
+				result = firstNumber - secondNumber;
+				break;
+			}
+		}
+		return result;
+	}
+
+	public static void main(String[] args) {
+
+		Scanner input = new Scanner(System.in);
+
+		System.out.println("Enter a math expresion.");
+		System.out.println("Expression can be of type x+x or x-x.");
+		System.out.println("Nothing else will pass.");
+		String expression = input.nextLine();
+		System.out.println(getIntResult(expression));
+
+		input.close();
+	}
+
+}

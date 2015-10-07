@@ -1,0 +1,164 @@
+package ba.bitcamp.exercises.day2;
+
+import java.util.EmptyStackException;
+
+/**
+ * Simulates Stack of Strings in LinkedList.
+ * 
+ * @author boris.tomic
+ *
+ */
+public class StackOfLinkedStrings {
+
+	private Node start;
+
+	/**
+	 * Constructor of StackOfLinkedString class, sets start <code>Node</code> as
+	 * null.
+	 */
+	public StackOfLinkedStrings() {
+		start = null;
+	}
+
+	/**
+	 * Checks if there is any element in Stack, returns <code>boolean</code>
+	 * type representation, <code>true</code> if empty, <code>false</code> in
+	 * not
+	 * 
+	 * @return - returns <code>boolean</code> type representation,
+	 *         <code>true</code> if empty, <code>false</code> in not
+	 */
+	public boolean empty() {
+		return start == null;
+	}
+
+	/**
+	 * Adds a <code>String</code> value at last position in
+	 * StackOfLinkedStrings.
+	 * 
+	 * @param value
+	 *            - <code>String</code> type value that will be pushed
+	 * @return <code>String</code> type value that is pushed
+	 */
+	public String push(String value) {
+		if (start == null) {
+			start.setValue(value);
+		} else {
+			Node temp = getLastNode();
+			temp.setValue(value);
+		}
+		return value;
+	}
+
+	/**
+	 * Checks if start is last node, if not goes thru loop until it finds last
+	 * node and then returns it.
+	 * 
+	 * @return - <code>Node</code> type value last in StackOfLinkedStrings
+	 */
+	public Node getLastNode() {
+		if (start == null) {
+			return null;
+		} else {
+			Node temp = start.getNext();
+			while (temp.getNext() != null) {
+				temp = temp.getNext();
+			}
+			return temp;
+		}
+	}
+
+	public String pop() throws EmptyStackException {
+		if (start == null) {
+			throw new EmptyStackException();
+		} else {
+			String temp = getLastNode().getValue();
+			Node last = getPreviousNode(getLastNode());
+			return temp;
+		}
+	}
+
+	/**
+	 * Checks if first is <code>Node</code> that is looked for, if it is returns
+	 * null because there is not previous <code>Node</code> to that. Otherwise
+	 * goes thru all the <code>Nodes</code> until it reaches desired inputed
+	 * one. Returns that result, which is previous.
+	 * 
+	 * @param n
+	 *            - <code>Node</code> type value that we want to find previous
+	 *            to that one
+	 * @return previous <code>Node</code> from inputed one
+	 */
+	public Node getPreviousNode(Node n) {
+		if (n == start) {
+			return null;
+		}
+		Node temp = start;
+		while (temp.getNext() != n) {
+			temp = temp.getNext();
+		}
+		return temp;
+	}
+
+	/*
+	 * Klasa je implementirana pomoću linkova. Implementirati pop i peek metode.
+	 */
+
+	@Override
+	public String toString() throws EmptyStackException {
+		if (start == null) {
+			throw new EmptyStackException();
+		}
+		return start.toString();
+	}
+
+	/**
+	 * Private inner class Node used to link all the elements.
+	 * 
+	 * @author boris.tomic
+	 *
+	 */
+	private class Node {
+
+		private Node next;
+		private String value;
+
+		/**
+		 * Constructor of Node class, sets next <code>Node</code> as
+		 * <code>null</code>, and value is inputed by param value.
+		 * 
+		 * @param value
+		 *            - <code>String</code> type value
+		 */
+		public Node(String value) {
+			this.value = value;
+			next = null;
+		}
+
+		public Node getNext() {
+			return next;
+		}
+
+		public void setNext(Node next) {
+			this.next = next;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		public void setValue(String value) {
+			this.value = value;
+		}
+
+		@Override
+		public String toString() {
+			if (next == null) {
+				return value;
+			}
+			return value + ", " + next.toString();
+		}
+
+	}
+
+}

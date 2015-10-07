@@ -1,0 +1,18 @@
+package ba.bitcamp.exercises.day2;
+
+public class StackOfStrings {
+
+	private String[] strings;
+	
+	
+	
+	/*
+	 * Napraviti klasu koja opisuje jedan stack String-ova. Klasa je
+	 * implementirana pomoću niza.
+	 * 
+	 * Implementirati isEmpty, push, pop i peek metode.
+	 */
+	
+	
+
+}

@@ -1,0 +1,93 @@
+package ba.bitcamp.ludogame;
+
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class Matrix extends JFrame {
+	private static final long serialVersionUID = -7279692822351465019L;
+
+	private int[][] matrix; // = new int [11][11];
+	private JLabel[][] label = new JLabel[11][11];
+
+	public Matrix() {
+		setLayout(new GridLayout(11, 11));
+
+		matrix = new int[][] { { 3, 3, 0, 0, 1, 1, 1, 0, 0, 2, 2 },
+				{ 3, 3, 0, 0, 1, 2, 1, 0, 0, 2, 2 },
+				{ 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0 },
+				{ 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1 },
+				{ 1, 3, 3, 3, 3, 6, 4, 4, 4, 4, 1 },
+				{ 1, 1, 1, 1, 1, 5, 1, 1, 1, 1, 1 },
+				{ 0, 0, 0, 0, 1, 5, 1, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 1, 5, 1, 0, 0, 0, 0 },
+				{ 5, 5, 0, 0, 1, 5, 1, 0, 0, 4, 4 },
+				{ 5, 5, 0, 0, 1, 1, 1, 0, 0, 4, 4 }, };
+
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				label[i][j] = new JLabel();
+				label[i][j].setOpaque(true);
+				label[i][j].setHorizontalAlignment(NORMAL);
+				if (matrix[i][j] == 3) {
+					label[i][j].setBackground(Color.RED);
+				} else if (matrix[i][j] == 2) {
+					label[i][j].setBackground(Color.GREEN);
+				} else if (matrix[i][j] == 1) {
+					label[i][j].setBackground(Color.WHITE);
+				} else if (matrix[i][j] == 4) {
+					label[i][j].setBackground(Color.BLUE);
+				} else if (matrix[i][j] == 5) {
+					label[i][j].setBackground(Color.YELLOW);
+				} else if (matrix[i][j] == 6) {
+
+					//label[i][j].addMouseListener(new Action());
+				}
+				label[i][j].addMouseListener(new Action());
+				label[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+				add(label[i][j]);
+
+			}
+		}
+		
+		label[4][0].setIcon(new ImageIcon(new PlayerGraphics().getBlue()));
+		
+		setSize(800, 800);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
+
+	}
+
+	private class Action extends MouseAdapter {
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			int value = Utility.getRandomNumber();
+			if (e.getSource() == label[5][5]) {
+				label[5][5].setIcon(new ImageIcon(new Dice()
+						.getRandomDice(value)));
+				System.out.println(value);
+			}
+			//if (e.getSource() == label[0][0] || e.getSource() == label[0][1]
+			// || e.getSource() == label[1][0] || e.getSource() == label[1][1])
+			if (e.getSource() == label[4][0]) {
+				label[4][0].setIcon(null);
+				label[4][value].setIcon(new ImageIcon(new PlayerGraphics().getBlue()));
+			}
+
+		}
+	}
+
+	public static void main(String[] args) {
+		new Matrix();
+	}
+
+}

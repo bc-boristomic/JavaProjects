@@ -1,0 +1,11 @@
+package ba.bitcamp.exercises.day2;
+
+/**
+ * Simulates Stack of Strings in LinkedList.
+ * 
+ * @author boris.tomic
+ *
+ */
+public class StackOfLinkedStrings {
+
+}

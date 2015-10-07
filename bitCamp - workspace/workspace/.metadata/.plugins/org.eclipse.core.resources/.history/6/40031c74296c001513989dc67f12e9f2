@@ -1,0 +1,58 @@
+package test;
+
+import java.util.Scanner;
+
+public class Task1 {
+	
+		
+public static void main(String[] args) {
+		
+		Scanner input = new Scanner(System.in);
+		
+		//Declaring and initializing variables
+		System.out.print("Input expression: ");
+		String expression = input.nextLine();
+		char sign = '0';
+		int position = 0;
+		
+		//Checking which sing is inputed and the position of sign in string 
+		if(expression.indexOf('+') != -1){
+			sign = '+';
+			position = expression.indexOf('+');
+		} else if(expression.indexOf('-') != -1){
+			sign = '-';
+			position = expression.indexOf('-');
+		} else if(expression.indexOf('*') != -1){
+			sign = '*';
+			position = expression.indexOf('*');
+		} else if(expression.indexOf('/') != -1){
+			sign = '/';
+			position = expression.indexOf('/');
+		}
+		//Getting substrings to hold numbers
+		String sNum1 = expression.substring(0, position);
+		String sNum2 = expression.substring(position + 1, expression.length());
+		//Parsing numbers into integer
+		int num1 = Integer.parseInt(sNum1);
+		int num2 = Integer.parseInt(sNum2);
+		
+		//Printing results
+		switch (sign) {
+		case '+':
+			System.out.println("Result is: " + (num1 + num2));
+			break;
+		case '-':
+			System.out.println("Result is: " + (num1 - num2));
+			break;
+		case '*':
+			System.out.println("Result is: " + (num1 * num2));
+			break;
+		case '/':
+			System.out.println("Result is: " + (num1 / num2));
+			break;
+		}
+		
+		input.close();
+	}
+
+}

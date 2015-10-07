@@ -1,0 +1,48 @@
+package ba.bitcamp.exercises.day2;
+
+import java.util.Arrays;
+
+public class StackOfStrings {
+
+	private String[] strings;
+
+	/**
+	 * Constructor of StackOfStrings class
+	 */
+	public StackOfStrings() {
+		strings = new String[0];
+	}
+
+	/**
+	 * Checks if arrays is empty. Retruns <code>boolean</code> type value,
+	 * <code>true</code> if it is empty, <code>false</code> if not
+	 * 
+	 * @return - <code>boolean</code> type value, <code>true</code> if empty,
+	 *         <code>false</code> if not
+	 */
+	public boolean empty() {
+		return strings.length == 0;
+	}
+
+	public String push(String value) {
+		strings = Arrays.copyOf(strings, strings.length + 1);
+		strings[strings.length - 1] = value;
+		return value;
+	}
+
+	public String pop() {
+		String temp = strings[strings.length - 1];
+		strings = Arrays.copyOf(strings, strings.length - 1);
+		return temp;
+	}
+
+	public String peek() {
+		return strings[strings.length - 1];
+	}
+
+	@Override
+	public String toString() {
+		return Arrays.toString(strings);
+	}
+
+}

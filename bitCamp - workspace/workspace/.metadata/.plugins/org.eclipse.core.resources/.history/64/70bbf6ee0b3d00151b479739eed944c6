@@ -1,0 +1,14 @@
+package ba.bitcamp.ludogame;
+
+import java.awt.image.BufferedImage;
+
+public class PlayerGraphics {
+	
+	private BufferedImage blue;
+	
+	public PlayerGraphics() {
+		
+	}
+
+
+}

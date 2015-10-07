@@ -1,0 +1,42 @@
+package ba.bitcamp.day3;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import javax.swing.JFileChooser;
+
+public class Task1 {
+
+	public static void main(String[] args) {
+
+		/*
+		 * Preuzeti example.csv file sa Classroom-a. U njemu se nalazi spisak
+		 * radnika jedne kompanije.
+		 * 
+		 * Potrebno je napisati odgovarajuću klasu koja može prihvatiti jednog
+		 * radnika (jedan red file-a).
+		 * 
+		 * Sortirati po imenu i ispisati na konzolu radnike te firme.
+		 */
+		
+		JFileChooser choose = new JFileChooser(System.getProperty("usr.dir"));
+		int option = choose.showOpenDialog(null);
+		if (option == JFileChooser.APPROVE_OPTION) {
+			File file = null;
+			file = choose.getSelectedFile();
+			Scanner in = null;
+			try {
+				in = new Scanner(file);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			String line = null;
+			while (in.hasNext()) {
+				line = in.nextLine();
+				System.out.println(line);
+			}
+		}
+	}
+
+}
